@@ -1,4 +1,5 @@
 
+// Функция для проверки длины строки
 
 const getLengthStroke = function (verifyStroke, numberStroke) {
   if (verifyStroke.length <= numberStroke) {
@@ -8,4 +9,16 @@ const getLengthStroke = function (verifyStroke, numberStroke) {
 };
 
 getLengthStroke();
+
+// Функция для проверки строки на палиндром
+
+const palindromeChecker = function(someStroke) {
+  const reverseStroke = someStroke.toLowerCase().split('').reverse().join('');
+  if (someStroke.toLowerCase() === reverseStroke) {
+    return true;
+  }
+  return false;
+};
+
+palindromeChecker();
 
