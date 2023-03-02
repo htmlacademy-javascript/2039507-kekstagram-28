@@ -1,4 +1,6 @@
-const PICTURE_COUNT = 25;
+/* eslint-disable prefer-template */
+const PICTURE_COUNT_MIN = 1;
+const PICTURE_COUNT_MAX = 25;
 const AVATAR_COUNT = 6;
 const LIKE_MIN = 15;
 const LIKE_MAX = 200;
@@ -11,7 +13,7 @@ const COMMENT_LINES = [
 'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
 'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
-const DESCRIPTIONS;
+const DESCRIPTIONS = null;
 
 const NAMES = [
   'Иван',
@@ -24,6 +26,17 @@ const NAMES = [
   'Вашингтон'
 ];
 
+const SURNAMES = [
+  'да Марья',
+  'Верон',
+  'Мирабелла',
+  'Вальц',
+  'Онопко',
+  'Топольницкая',
+  'Нионго',
+  'Ирвинг',
+];
+
 
 
 
@@ -33,27 +46,25 @@ const NAMES = [
 
 // Структура каждого объекта должна быть следующей:
 
-const createRamdomNumber = (a, b) => {
-  const lower = Math.min(a, b);
-  const higher = Math.max(a, b);
+const getRamdomNumber = (a, b) => {
+  const lower = Math.ceil(Math.min(a, b));
+  const higher = Math.floor(Math.max(a, b));
   const result = Math.random() * (higher - lower + 1) + lower;
   return Math.floor(result);
-}
+};
 
 
-const createPhoto = () => {
+const getPhoto = () => {
+  const randomId = getRamdomNumber(PICTURE_COUNT_MIN, PICTURE_COUNT_MAX - 1);
+
   return {
-    id:'',
+    id:[randomId],
     url:'',
     description:'',
     likesCountter:''
-  }
+  };
 };
-
-createPhoto();
-
-const getId = () => {};
-getId();
+getPhoto();
 
 // url, строка — адрес картинки вида photos/{{i}}.jpg,
 // где {{i}} — это число от 1 до 25. Адреса картинок не должны повторяться.
@@ -66,7 +77,17 @@ let description;
 const likesCounter = () => {};
 likesCounter();
 
-
-
-
 // comments, массив объектов — список комментариев, оставленных другими пользователями к этой фотографии.
+
+const getComments = () => {
+  const randomNameIndex = getRamdomNumber(0, NAMES.length - 1);
+  const randomSurnameIndex = getRamdomNumber(0, SURNAMES.length - 1);
+
+  return {
+    authorName: NAMES[randomNameIndex] + ' ' + SURNAMES[randomSurnameIndex],
+    url:'',
+    description:'',
+    likesCountter:''
+  };
+};
+getComments();
