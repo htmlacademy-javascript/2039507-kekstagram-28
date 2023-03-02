@@ -1,21 +1,15 @@
 
 // Функция для проверки длины строки
 
-const getLengthStroke = function (verifyString, numberString) {
-  if (verifyString.length <= numberString) {
-    return true;
-  }
-  return false;
-};
-
-getLengthStroke();
+const getString = (someString, numberString) => someString.length <= numberString;
+getString();
 
 // Функция для проверки строки на палиндром
 
 const palindromeChecker = (someString) => {
   const upgradeString = someString
     .toLowerCase()
-    .replaceAll(' ','');
+    .replaceAll(' ', '');
 
   let reverseString = '';
   for (let i = upgradeString.length - 1; i >= 0; i--) {
@@ -23,17 +17,35 @@ const palindromeChecker = (someString) => {
   }
   return upgradeString === reverseString;
 };
+
 palindromeChecker();
 
 // Функция возвращающая числа
 
 
-const getNumber = function(someStroke) {
-  const number = someStroke.split('').Number().join('');
-  if (number === true) {
-    return number;
+const getNumber = function (someString) {
+
+  let result = '';
+  for (let i = 0; i < someString.length; i++) {
+    if (!Number.isNaN(parseInt(someString.at(i), 10))) {
+      result += someString.at(i);
+    }
   }
-  return NaN;
+  return parseInt(result, 10);
 };
 
 getNumber();
+
+// Функция, которая принимает три параметра
+
+const padStart = (string, minLength, pad) => {
+  const actualPad = minLength - string.length;
+
+  if (actualPad <= 0) {
+    return string;
+  }
+  return pad.slice(0, actualPad % pad.length) + pad.repeat(actualPad / pad.length) + string;
+};
+
+padStart();
+
