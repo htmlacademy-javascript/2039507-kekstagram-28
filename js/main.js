@@ -63,8 +63,7 @@ const SURNAMES = [
   'Мелько'
 ];
 
-// При помощи js написать функции для создания массива из 25 объектов.
-
+// Создаем рандомайзер чисел
 
 const getRandomNumber = (a, b) => {
   const lower = Math.ceil(Math.min(a, b));
@@ -72,6 +71,8 @@ const getRandomNumber = (a, b) => {
   const result = Math.random() * (higher - lower + 1) + lower;
   return Math.floor(result);
 };
+
+// Создаем генератор ID
 
 let createRandomId = function () {
   const previousValues = [];
@@ -90,6 +91,25 @@ let createRandomId = function () {
   };
 };
 
+// Создаем комментарий
+
+function getComments() {
+  const randomIdComment = getRandomNumber(0, 1000);
+  const randomAvatar = getRandomNumber(1, AVATAR_COUNT);
+  const randomMessage = COMMENT_LINES[getRandomNumber(0, COMMENT_LINES.length - 1)];
+  const randomNameIndex = getRandomNumber(0, NAMES.length - 1);
+  const randomSurnameIndex = getRandomNumber(0, SURNAMES.length - 1);
+
+  return {
+    id: [randomIdComment],
+    avatar: 'img/avatar-' + [randomAvatar] + '.svg',
+    message: [randomMessage],
+    name: NAMES[randomNameIndex] + ' ' + SURNAMES[randomSurnameIndex]
+  };
+}
+
+// Собираем обьект
+
 function getPhoto() {
   createRandomId = getRandomNumber(PICTURE_COUNT_MIN, PICTURE_COUNT_MAX);
   const randomDescription = DESCRIPTIONS[getRandomNumber(0, DESCRIPTIONS.length - 1)];
@@ -99,25 +119,12 @@ function getPhoto() {
     id: [createRandomId],
     url: ['photos/' + [createRandomId] + '.jpg'],
     description: [randomDescription],
-    likesCounter: [likesCounter]
+    likesCounter: [likesCounter],
+    comments: [getComments]
   };
 }
-getPhoto();
+
+// Склеиваем массив
 
 const createPhotoArray = Array.from({length: 25}, getPhoto);
 console.log(createPhotoArray);
-
-// comments, массив объектов — список комментариев, оставленных другими пользователями к этой фотографии.
-
-function getComments() {
-  const randomNameIndex = getRandomNumber(0, NAMES.length - 1);
-  const randomSurnameIndex = getRandomNumber(0, SURNAMES.length - 1);
-
-  return {
-    authorName: NAMES[randomNameIndex] + ' ' + SURNAMES[randomSurnameIndex],
-    url: '',
-    description: '',
-    likesCountter: ''
-  };
-}
-getComments();
