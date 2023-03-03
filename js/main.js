@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable prefer-template */
 const PICTURE_COUNT_MIN = 1;
 const PICTURE_COUNT_MAX = 25;
@@ -72,40 +73,51 @@ const getRandomNumber = (a, b) => {
   return Math.floor(result);
 };
 
+let createRandomId = function () {
+  const previousValues = [];
 
-const getPhoto = () => {
-  const randomId = getRandomNumber(PICTURE_COUNT_MIN, PICTURE_COUNT_MAX - 1);
-  const randomDescription = DESCRIPTIONS[getRandomNumber(0, DESCRIPTIONS.length - 1)];
-
-  // Структура каждого объекта должна быть следующей:
-
-  return {
-    id:[randomId],
-    url:['photos/' + [randomId] + '.jpg'],
-    description:[randomDescription],
-    likesCounter:''
+  return function () {
+    let currentValue = getRandomNumber(PICTURE_COUNT_MIN, PICTURE_COUNT_MAX - 1);
+    if (previousValues.length - 1 >= (PICTURE_COUNT_MAX - PICTURE_COUNT_MIN + 1)) {
+      console.error('Перебраны все числа из диапазона от ' + PICTURE_COUNT_MIN + ' до ' + PICTURE_COUNT_MAX);
+      return null;
+    }
+    while (previousValues.includes(currentValue)) {
+      currentValue = getRandomNumber();
+    }
+    previousValues.push(currentValue);
+    return currentValue;
   };
 };
+
+function getPhoto() {
+  createRandomId = getRandomNumber(PICTURE_COUNT_MIN, PICTURE_COUNT_MAX);
+  const randomDescription = DESCRIPTIONS[getRandomNumber(0, DESCRIPTIONS.length - 1)];
+  const likesCounter = getRandomNumber(LIKE_MIN, LIKE_MAX);
+
+  return {
+    id: [createRandomId],
+    url: ['photos/' + [createRandomId] + '.jpg'],
+    description: [randomDescription],
+    likesCounter: [likesCounter]
+  };
+}
 getPhoto();
 
-// description, строка — описание фотографии. Описание придумайте самостоятельно.
-let description;
-
-// likes, число — количество лайков, поставленных фотографии. Случайное число от 15 до 200.
-const likesCounter = () => {};
-likesCounter();
+const createPhotoArray = Array.from({length: 25}, getPhoto);
+console.log(createPhotoArray);
 
 // comments, массив объектов — список комментариев, оставленных другими пользователями к этой фотографии.
 
-const getComments = () => {
+function getComments() {
   const randomNameIndex = getRandomNumber(0, NAMES.length - 1);
   const randomSurnameIndex = getRandomNumber(0, SURNAMES.length - 1);
 
   return {
     authorName: NAMES[randomNameIndex] + ' ' + SURNAMES[randomSurnameIndex],
-    url:'',
-    description:'',
-    likesCountter:''
+    url: '',
+    description: '',
+    likesCountter: ''
   };
-};
+}
 getComments();
