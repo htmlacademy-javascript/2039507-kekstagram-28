@@ -1,11 +1,9 @@
-/* eslint-disable no-console */
-/* eslint-disable prefer-template */
+
 const PICTURE_COUNT_MIN = 1;
 const PICTURE_COUNT_MAX = 25;
 const AVATAR_COUNT = 6;
 const LIKE_MIN = 15;
 const LIKE_MAX = 200;
-const COMMENT_COUNT = 20;
 const COMMENT_LINES = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -80,7 +78,6 @@ let createRandomId = function () {
   return function () {
     let currentValue = getRandomNumber(PICTURE_COUNT_MIN, PICTURE_COUNT_MAX - 1);
     if (previousValues.length - 1 >= (PICTURE_COUNT_MAX - PICTURE_COUNT_MIN + 1)) {
-      console.error('Перебраны все числа из диапазона от ' + PICTURE_COUNT_MIN + ' до ' + PICTURE_COUNT_MAX);
       return null;
     }
     while (previousValues.includes(currentValue)) {
@@ -102,9 +99,9 @@ function getComments() {
 
   return {
     id: [randomIdComment],
-    avatar: 'img/avatar-' + [randomAvatar] + '.svg',
+    avatar: `img/avatar-${ [randomAvatar] }.svg`,
     message: [randomMessage],
-    name: NAMES[randomNameIndex] + ' ' + SURNAMES[randomSurnameIndex]
+    name: `${NAMES[randomNameIndex] } ${ SURNAMES[randomSurnameIndex]}`
   };
 }
 
@@ -117,7 +114,7 @@ function getPhoto() {
 
   return {
     id: [createRandomId],
-    url: ['photos/' + [createRandomId] + '.jpg'],
+    url: [`photos/${ [createRandomId] }.jpg`],
     description: [randomDescription],
     likesCounter: [likesCounter],
     comments: [getComments]
@@ -127,4 +124,4 @@ function getPhoto() {
 // Склеиваем массив
 
 const createPhotoArray = Array.from({length: 25}, getPhoto);
-console.log(createPhotoArray);
+createPhotoArray();
