@@ -1,9 +1,12 @@
+/* eslint-disable no-console */
 
+const OBJECT_MAX = 25;
 const PICTURE_COUNT_MIN = 1;
 const PICTURE_COUNT_MAX = 25;
 const AVATAR_COUNT = 6;
 const LIKE_MIN = 15;
 const LIKE_MAX = 200;
+const IDMAX = 1000;
 const COMMENT_LINES = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -90,8 +93,8 @@ let createRandomId = function () {
 
 // Создаем комментарий
 
-function getComments() {
-  const randomIdComment = getRandomNumber(0, 1000);
+const getComments = function () {
+  const randomIdComment = getRandomNumber(0, IDMAX);
   const randomAvatar = getRandomNumber(1, AVATAR_COUNT);
   const randomMessage = COMMENT_LINES[getRandomNumber(0, COMMENT_LINES.length - 1)];
   const randomNameIndex = getRandomNumber(0, NAMES.length - 1);
@@ -103,11 +106,11 @@ function getComments() {
     message: [randomMessage],
     name: `${NAMES[randomNameIndex] } ${ SURNAMES[randomSurnameIndex]}`
   };
-}
+};
 
 // Собираем обьект
 
-function getPhoto() {
+const getPhoto = function () {
   createRandomId = getRandomNumber(PICTURE_COUNT_MIN, PICTURE_COUNT_MAX);
   const randomDescription = DESCRIPTIONS[getRandomNumber(0, DESCRIPTIONS.length - 1)];
   const likesCounter = getRandomNumber(LIKE_MIN, LIKE_MAX);
@@ -117,11 +120,14 @@ function getPhoto() {
     url: [`photos/${ [createRandomId] }.jpg`],
     description: [randomDescription],
     likesCounter: [likesCounter],
-    comments: [getComments]
+    comments: [getComments()]
   };
-}
+};
+
 
 // Склеиваем массив
 
-const createPhotoArray = Array.from({length: 25}, getPhoto);
+const createPhotoArray = Array.from({length: OBJECT_MAX}, getPhoto);
 createPhotoArray();
+
+
