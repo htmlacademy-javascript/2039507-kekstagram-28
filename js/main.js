@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+
 
 const OBJECT_MAX = 25;
 const PICTURE_COUNT_MIN = 1;
@@ -73,53 +73,39 @@ const getRandomNumber = (a, b) => {
   return Math.floor(result);
 };
 
-// Создаем генератор ID
+// Создаем генератор случ.элементов массива
 
-let createRandomId = function () {
-  const previousValues = [];
-
-  return function () {
-    let currentValue = getRandomNumber(PICTURE_COUNT_MIN, PICTURE_COUNT_MAX - 1);
-    if (previousValues.length - 1 >= (PICTURE_COUNT_MAX - PICTURE_COUNT_MIN + 1)) {
-      return null;
-    }
-    while (previousValues.includes(currentValue)) {
-      currentValue = getRandomNumber();
-    }
-    previousValues.push(currentValue);
-    return currentValue;
-  };
-};
+const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
 // Создаем комментарий
 
-const getComments = function () {
+function getComments() {
   const randomIdComment = getRandomNumber(0, IDMAX);
   const randomAvatar = getRandomNumber(1, AVATAR_COUNT);
-  const randomMessage = COMMENT_LINES[getRandomNumber(0, COMMENT_LINES.length - 1)];
-  const randomNameIndex = getRandomNumber(0, NAMES.length - 1);
-  const randomSurnameIndex = getRandomNumber(0, SURNAMES.length - 1);
+  const randomMessage = getRandomArrayElement(COMMENT_LINES);
+  const randomNameIndex = getRandomArrayElement(NAMES);
+  const randomSurnameIndex = getRandomArrayElement(SURNAMES);
 
   return {
-    id: [randomIdComment],
-    avatar: `img/avatar-${ [randomAvatar] }.svg`,
-    message: [randomMessage],
-    name: `${NAMES[randomNameIndex] } ${ SURNAMES[randomSurnameIndex]}`
+    id: randomIdComment,
+    avatar: `img/avatar-${[randomAvatar]}.svg`,
+    message: randomMessage,
+    name: `${NAMES[randomNameIndex]} ${SURNAMES[randomSurnameIndex]}`
   };
-};
+}
 
 // Собираем обьект
 
-const getPhoto = function () {
-  createRandomId = getRandomNumber(PICTURE_COUNT_MIN, PICTURE_COUNT_MAX);
-  const randomDescription = DESCRIPTIONS[getRandomNumber(0, DESCRIPTIONS.length - 1)];
+const getPhoto = () => {
+  const createRandomId = getRandomNumber(PICTURE_COUNT_MIN, PICTURE_COUNT_MAX);
+  const randomDescription = getRandomArrayElement(DESCRIPTIONS);
   const likesCounter = getRandomNumber(LIKE_MIN, LIKE_MAX);
 
   return {
-    id: [createRandomId],
-    url: [`photos/${ [createRandomId] }.jpg`],
-    description: [randomDescription],
-    likesCounter: [likesCounter],
+    id: createRandomId,
+    url: `photos/${createRandomId}.jpg`,
+    description: randomDescription,
+    likesCounter: likesCounter,
     comments: [getComments()]
   };
 };
@@ -129,5 +115,4 @@ const getPhoto = function () {
 
 const createPhotoArray = Array.from({length: OBJECT_MAX}, getPhoto);
 createPhotoArray();
-
 
