@@ -113,6 +113,5 @@ const getPhoto = () => {
 
 // Склеиваем массив
 
-const createPhotoArray = Array.from({length: OBJECT_MAX}, getPhoto);
+const createPhotoArray = () => Array.from({length: OBJECT_MAX}, getPhoto);
 createPhotoArray();
-
