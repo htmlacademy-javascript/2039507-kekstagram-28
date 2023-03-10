@@ -1,5 +1,3 @@
-
-
 const OBJECT_MAX = 25;
 const PICTURE_COUNT_MIN = 1;
 const PICTURE_COUNT_MAX = 25;
@@ -115,3 +113,4 @@ const getPhoto = () => {
 
 const createPhotoArray = () => Array.from({length: OBJECT_MAX}, getPhoto);
 createPhotoArray();
+
