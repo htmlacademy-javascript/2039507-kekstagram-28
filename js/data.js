@@ -96,5 +96,4 @@ const getPhoto = () => {
 
 const createPhotoArray = () => Array.from({ length: OBJECT_MAX }, getPhoto);
 
-
 export { createPhotoArray };
