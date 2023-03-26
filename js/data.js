@@ -1,5 +1,6 @@
 import { getRandomNumber, getRandomArrayElement } from './utilites.js';
 
+
 const OBJECT_MAX = 25;
 const PICTURE_COUNT_MIN = 1;
 const PICTURE_COUNT_MAX = 25;
@@ -7,6 +8,7 @@ const AVATAR_COUNT = 6;
 const LIKE_MIN = 15;
 const LIKE_MAX = 200;
 const IDMAX = 1000;
+
 const COMMENT_LINES = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -79,6 +81,8 @@ const getComments = () => {
   };
 };
 
+console.log(getComments());
+
 
 const getPhoto = () => {
   const createRandomId = getRandomNumber(PICTURE_COUNT_MIN, PICTURE_COUNT_MAX);
@@ -93,6 +97,7 @@ const getPhoto = () => {
     comments: [getComments()]
   };
 };
+console.log(getPhoto());
 
 const createPhotoArray = () => Array.from({ length: OBJECT_MAX }, getPhoto);
 
