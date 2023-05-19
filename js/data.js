@@ -1,4 +1,4 @@
-import { getRandomNumber, getRandomArrayElement } from './utilites.js';
+import { getRandomNumber } from './utilites.js';
 
 
 const OBJECT_MAX = 25;
@@ -48,7 +48,9 @@ const NAMES = [
   'Ксюша',
   'Люси',
   'Владимир',
-  'Павел'
+  'Павел',
+  'Василий',
+  'Дмитрий'
 ];
 
 const SURNAMES = [
@@ -63,8 +65,17 @@ const SURNAMES = [
   'Сушко',
   'Озеречко',
   'Кетано',
-  'Мелько'
+  'Мелько',
+  'Невмержицкий',
+  'Голодный',
+  'Молчанов'
 ];
+
+//Генератор случайных элементов массива
+
+const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
+
+//Создаем комментарий
 
 const getComments = () => {
   const randomIdComment = getRandomNumber(0, IDMAX);
@@ -77,29 +88,34 @@ const getComments = () => {
     id: randomIdComment,
     avatar: `img/avatar-${[randomAvatar]}.svg`,
     message: randomMessage,
-    name: `${ NAMES[randomNameIndex]} ${ SURNAMES[randomSurnameIndex]}`
+    name: `${ randomNameIndex}  ${ randomSurnameIndex }`
   };
 };
 
-console.log(getComments());
+//Создаем массив комментариев
 
+const createCommentsArray = () => {
+  const comments = Array.from({length: 10}, getComments);
+  return comments;
+};
+
+
+//Создаем фото
 
 const getPhoto = () => {
   const createRandomId = getRandomNumber(PICTURE_COUNT_MIN, PICTURE_COUNT_MAX);
-  const randomDescription = getRandomArrayElement(DESCRIPTIONS);
-  const likesCounter = getRandomNumber(LIKE_MIN, LIKE_MAX);
+  const createRandomDescription = getRandomArrayElement(DESCRIPTIONS);
+  const createLikesCounter = getRandomNumber(LIKE_MIN, LIKE_MAX);
 
   return {
     id: createRandomId,
     url: `photos/${ createRandomId }.jpg`,
-    description: randomDescription,
-    likesCounter: likesCounter,
-    comments: [getComments()]
+    description: createRandomDescription,
+    likesCounter: createLikesCounter,
+    comments: createCommentsArray()
   };
 };
-console.log(getPhoto());
 
-const createPhotoArray = () => Array.from({ length: OBJECT_MAX }, getPhoto);
-
+const createPhotoArray = () => Array.from({ length: OBJECT_MAX + 1 }, getPhoto);
 
 export { createPhotoArray };
