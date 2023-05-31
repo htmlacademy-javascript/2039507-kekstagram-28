@@ -8,7 +8,7 @@ const AVATAR_COUNT = 6;
 const LIKE_MIN = 15;
 const LIKE_MAX = 200;
 const IDMAX = 1000;
-
+const COMMENT_COUNT = 20;
 const COMMENT_LINES = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -73,7 +73,7 @@ const SURNAMES = [
 
 //Генератор случайных элементов массива
 
-const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
+const getRandomArrayElement = (array) => array[getRandomNumber(0, array.length - 1)];
 
 //Создаем комментарий
 
@@ -94,10 +94,7 @@ const getComments = () => {
 
 //Создаем массив комментариев
 
-const createCommentsArray = () => {
-  const comments = Array.from({length: 10}, getComments);
-  return comments;
-};
+const createCommentsArray = () => (Array.from({ length: COMMENT_COUNT }, getComments));
 
 
 //Создаем фото
@@ -116,6 +113,8 @@ const getPhoto = () => {
   };
 };
 
-const createPhotoArray = () => Array.from({ length: OBJECT_MAX + 1 }, getPhoto);
+//Создаем массив фотографий
+
+const createPhotoArray = () => (Array.from({ length: OBJECT_MAX + 1 }, getPhoto));
 
 export { createPhotoArray };
